@@ -1,0 +1,44 @@
+.datepicker {
+  height: 380px;
+  width: 300px;
+  background-color: red;
+  text-align: center;
+}
+
+.datepicker_title {
+  height: 20px;
+  padding: 10px 0px 10px 0px;
+  background-color: purple;
+  color: white;
+}
+
+.datepicker_year {
+  height: 20px;
+  padding: 10px 0px 10px 0px;
+  background-color: black;
+  color: orange;
+  font-size: 14px;
+}
+
+.datepicker_month {
+  height: 20px;
+  padding: 10px 0px 10px 0px;
+  background-color: blue;
+  color: white;
+}
+
+.datepicker_days {
+  text-align: center;
+  background-color: green;
+
+}
+
+.datepicker_day {
+  height: 38px;
+  width: 38px;
+  background-color: yellow;
+  border: 1px solid black;
+  float: left;
+  margin: 1px;
+  vertical-align: middle;
+}

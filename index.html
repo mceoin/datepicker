@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="jquery-2.1.1.min.js"></script>
+<script src="knockout-3.2.0.js"></script>
+<script src="underscore-min.js"></script>
+<script src="app.js"></script>
+<link rel="stylesheet" type="text/css" href="index.css">
+  <title>Datepicker 4</title>
+</head>
+
+<body>
+
+  <h1>This is a Heading</h1>
+
+  <p>This is a paragraph.</p>
+
+<p data-bind="with: chosenMonth">
+  You have chosen <b data-bind="text: name"></b>
+</p>
+
+<p data-bind="with: chosenYear">
+  You have chosen <b data-bind="text: name"></b>
+</p>
+
+
+
+  <div class="datepicker">
+    <div class="datepicker_title">
+    Datepicker 4.0
+    </div>
+    <div class="datepicker_year">
+      <button><<</button>
+      Year (1970)
+      <button>>></button>
+    </div>
+
+     <div class="datepicker_year">
+      <select data-bind="options: years,
+                    optionsCaption: 'Year...',
+                    optionsText: 'name',
+                    value: chosenYear">
+      </select>
+    </div>
+
+
+    <div class="datepicker_month">
+      <select data-bind="options: months,
+                    optionsCaption: 'Month...',
+                    optionsText: 'name',
+                    value: chosenMonth">
+      </select>
+    </div>
+
+    <div class="datepicker_days">
+      <div class="datepicker_day">
+        1
+      </div>
+      <div class="datepicker_day">
+        2
+      </div>
+      <div class="datepicker_day">
+        3
+      </div>
+      <div class="datepicker_day">
+        4
+      </div>
+      <div class="datepicker_day">
+        5
+      </div>
+      <div class="datepicker_day">
+        6
+      </div>
+      <div class="datepicker_day">
+        7
+      </div>
+    </div> <!-- end of datepicker_days -->
+
+
+  </div> <!-- end of datepicker -->
+
+</body>
+
+</html>
