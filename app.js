@@ -28,7 +28,7 @@ dateObjects = _.map(datesArray, function(num){
                 })
 
 function ViewModel() {
-
+// note: knockout data-bindings require {key: pair} values
     this.years = yearObjects;
     this.chosenYear = ko.observable();
 
@@ -37,7 +37,6 @@ function ViewModel() {
 
     this.dates = dateObjects;
     this.chosenDate = ko.observable();
-    // this.dates = ko.observableArray(datesArray);
 
   };
 

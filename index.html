@@ -23,9 +23,9 @@
   You have chosen <b data-bind="text: year"></b>
 </p>
 
-<!-- <p data-bind="with: chosenDate">
+<p data-bind="with: chosenDate">
   You have chosen <b data-bind="text: date"></b>
-</p> -->
+</p>
 
 
 
@@ -52,7 +52,8 @@
     </div>
 
     <div class="datepicker_days" data-bind="foreach: dates">
-        <span class="datepicker_day" data-bind="text: date"> </span>
+        <div class="datepicker_day" data-bind="text: date,
+                                              click: console.log(date)"> </div>
 
         <!-- <div class="datepicker_day" data-bind="text: date"></div> -->
         <div>
