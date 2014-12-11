@@ -16,12 +16,16 @@
   <p>This is a paragraph.</p>
 
 <p data-bind="with: chosenMonth">
-  You have chosen <b data-bind="text: name"></b>
+  You have chosen <b data-bind="text: month"></b>
 </p>
 
 <p data-bind="with: chosenYear">
-  You have chosen <b data-bind="text: name"></b>
+  You have chosen <b data-bind="text: year"></b>
 </p>
+
+<!-- <p data-bind="with: chosenDate">
+  You have chosen <b data-bind="text: date"></b>
+</p> -->
 
 
 
@@ -29,16 +33,11 @@
     <div class="datepicker_title">
     Datepicker 4.0
     </div>
-    <div class="datepicker_year">
-      <button><<</button>
-      Year (1970)
-      <button>>></button>
-    </div>
 
      <div class="datepicker_year">
       <select data-bind="options: years,
                     optionsCaption: 'Year...',
-                    optionsText: 'name',
+                    optionsText: 'year',
                     value: chosenYear">
       </select>
     </div>
@@ -47,33 +46,16 @@
     <div class="datepicker_month">
       <select data-bind="options: months,
                     optionsCaption: 'Month...',
-                    optionsText: 'name',
+                    optionsText: 'month',
                     value: chosenMonth">
       </select>
     </div>
 
-    <div class="datepicker_days">
-      <div class="datepicker_day">
-        1
-      </div>
-      <div class="datepicker_day">
-        2
-      </div>
-      <div class="datepicker_day">
-        3
-      </div>
-      <div class="datepicker_day">
-        4
-      </div>
-      <div class="datepicker_day">
-        5
-      </div>
-      <div class="datepicker_day">
-        6
-      </div>
-      <div class="datepicker_day">
-        7
-      </div>
+    <div class="datepicker_days" data-bind="foreach: dates">
+        <span class="datepicker_day" data-bind="text: date"> </span>
+
+        <!-- <div class="datepicker_day" data-bind="text: date"></div> -->
+        <div>
     </div> <!-- end of datepicker_days -->
 
 
