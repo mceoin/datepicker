@@ -1,114 +1,118 @@
 $(document).ready(function(){
 
-todayObject = new Date();
-todayYear = todayObject.getFullYear();
-todayMonth = todayObject.getMonth();
-todayDate = todayObject.getDate();
-todayDay = todayObject.getDay(); // n.b. returns array position of [S,M,T,W,T,F,S]
-daysThisMonth = daysInMonth(todayMonth, todayYear)
+  todayObject = new Date();
+  todayYear = todayObject.getFullYear();
+  todayMonth = todayObject.getMonth();
+  todayDate = todayObject.getDate();
+  todayDay = todayObject.getDay(); // n.b. returns array position of [S,M,T,W,T,F,S]
+  daysThisMonth = daysInMonth(todayMonth+1, todayYear)
 
-currentDateObject = todayObject
-currentYear = todayYear
-currentMonth = todayMonth
-currentDay = todayDate
+  currentDateObject = todayObject
+  currentYear = todayYear
+  currentMonth = todayMonth
+  currentDay = todayDate
 
-// var d = new Date(year, month, day);
+  function daysInMonth(month,year) { //Month is 1 based
+      return new Date(year, month, 0).getDate();
+  }
 
-// update date functions BEGIN //
-updateDateObject = function(){
-  currentDateObject = new Date(currentYear, currentMonth, currentDay);
-   console.log("-----------------------------------------------");
-  console.log("The current date is: " + currentDateObject);
-  console.log("-----------------------------------------------");
-  currentYear = currentDateObject.getFullYear()
-  currentMonth = currentDateObject.getMonth()
-  currentDay = currentDateObject.getDate()
+  yearsToDate = _.range(1970, todayYear+1) // note: 1970 was the first javascript Date year
 
-  console.log("The current year is: " + currentYear);
-  console.log("The current month is: " + currentMonth);
-  console.log("The current day is: " + currentDay);
-}
+  yearObjects = _.map(yearsToDate, function(num){
+                    return _.object(['year'], [num]); // return array of year hashes
+                  })
 
+  monthsArray = [ {month: "January"}, {month: "February"}, {month: "March"}, {month: "April"}, {month: "May"}, {month: "June"}, {month: "July"}, {month: "August"}, {month: "September"}, {month: "October"}, {month: "November"}, {month: "December"} ]
 
-upYear = function(){
-  currentYear = currentYear + 1;
-  updateDateObject();
+  datesArray = _.range(1, daysThisMonth+1)
+
+  dateObjects = _.map(datesArray, function(num){
+                    return _.object(['date'], [num]); // return array of date hashes
+                  })
+
+  // update date functions BEGIN //
+  updateDateObject = function(){ //note: we reset the currentYear/Month/Day to keep calendar current with "real" dates. (otherwise -34 & + 61 become real date)
+    currentDateObject = new Date(currentYear, currentMonth, currentDay);
+    currentYear = currentDateObject.getFullYear();
+    currentMonth = currentDateObject.getMonth();
+    currentDay = currentDateObject.getDate();
+    updateDates();
+    paintDays();
+  }
+
+  upYear = function(){
+    currentYear = currentYear + 1;
+    updateDateObject();
+  }
+
+  downYear = function(){
+    currentYear = currentYear - 1;
+    updateDateObject();
+  }
+
+  upMonth = function(){
+    currentMonth = currentMonth + 1;
+    updateDateObject();
+  }
+
+  downMonth = function(){
+    currentMonth = currentMonth - 1;
+    updateDateObject();
+  }
+
+  upDay = function(){
+    currentDay = currentDay + 1;
+    updateDateObject();
+  }
+
+  downDay = function(){
+    currentDay = currentDay - 1;
+    updateDateObject();
+  }
+
+  // modify dates
+  $('.upYear').click(upYear)
+  $('.downYear').click(downYear)
+  $('.upMonth').click(upMonth)
+  $('.downMonth').click(downMonth)
+  $('.upDay').click(upDay)
+  $('.downDay').click(downDay)
+
+  // set initial date values/update date values
+  updateDates = function(){
   $('.yearValue').text(currentYear)
-}
-
-downYear = function(){
-  currentYear = currentYear - 1;
-  updateDateObject();
-  $('.yearValue').text(currentYear)
-}
-
-upMonth = function(){
-  currentMonth = currentMonth + 1;
-  updateDateObject();
-  $('.monthValue').text(currentMonth)
-}
-
-downMonth = function(){
-  currentMonth = currentMonth - 1;
-  updateDateObject();
-  $('.monthValue').text(currentMonth)
-}
-
-upDay = function(){
-  currentDay = currentDay + 1;
-  updateDateObject();
+  $('.monthValue').text((monthsArray[currentMonth]).month)
   $('.dayValue').text(currentDay)
-}
+  }
 
-downDay = function(){
-  currentDay = currentDay - 1;
-  updateDateObject();
-  $('.dayValue').text(currentDay)
-}
+  updateDates();
 
-// modify dates
-$('.upYear').click(upYear)
-$('.downYear').click(downYear)
-$('.upMonth').click(upMonth)
-$('.downMonth').click(downMonth)
-$('.upDay').click(upDay)
-$('.downDay').click(downDay)
+  // update date functions END //
+  paintDays = function(){
+    if (($('.datepicker_day')) != []){
+      $('.datepicker_day').remove()
+    }
 
-// set initial date values
-$('.yearValue').text(currentYear)
-$('.monthValue').text(currentMonth)
-$('.dayValue').text(currentDay)
+    // calculate starting day
+    for (var i=0; i < (currentDateObject.getDay()-1); i++){
+      $('.datepicker_days').append("<div class='datepicker_day'></div>");
+    }
 
-// update date functions END //
+    // populate days
+    for (var i=0; i < daysInMonth(currentMonth+1, currentYear); i++){
+      var day = i+1
+      $('.datepicker_days').append("<div class='datepicker_day' data-day="+day+">"+day+"</div>");
+      } // end populate days loop
 
-function daysInMonth(month,year) { //Month is 1 based
-    return new Date(year, month, 0).getDate();
-}
+      function dateSelector(){
+        var divItem = this;
+        currentDay = $(divItem).data("day");
+        updateDates()
+      }
 
-yearsToDate = _.range(1970, todayYear+1) // note: 1970 was the first javascript Date year
+      $('.datepicker_day').on("click", dateSelector)
 
-yearObjects = _.map(yearsToDate, function(num){
-                  return _.object(['year'], [num]); // return array of year hashes
-                })
-
-monthsArray = [ {month: "January"}, {month: "February"}, {month: "March"}, {month: "April"}, {month: "May"}, {month: "June"}, {month: "July"}, {month: "August"}, {month: "September"}, {month: "October"}, {month: "November"}, {month: "December"} ]
-
-datesArray = _.range(1, daysThisMonth+1)
-
-dateObjects = _.map(datesArray, function(num){
-                  return _.object(['date'], [num]); // return array of date hashes
-                })
-// date selector
-selectDate = function(){
-  var selector = '.datepicker_day';
-
-  $(selector).on('click', function(){
-      $(selector).removeClass('active');
-      $(this).addClass('active');
-  });
-}
-// end date selector
-
-logdate = function(d){console.log(d)}
+  }; // end paintDays function
+  paintDays();
 
 }); // end of $(document).ready

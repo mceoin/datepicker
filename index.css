@@ -1,5 +1,5 @@
 .datepicker {
-  height: 380px;
+  height: 420px;
   width: 300px;
   background-color: red;
   text-align: center;
@@ -43,9 +43,9 @@
   vertical-align: middle;
 }
 
-.datepicker_day:active {
+/*.datepicker_day:active {
   background-color: beige;
-}
+}*/
 
 .day_row {
   height: 20px;
