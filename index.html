@@ -2,7 +2,6 @@
 <html>
 <head>
 <script src="jquery-2.1.1.min.js"></script>
-<script src="knockout-3.2.0.js"></script>
 <script src="underscore-min.js"></script>
 <script src="app.js"></script>
 <link rel="stylesheet" type="text/css" href="index.css">
@@ -15,52 +14,36 @@
 
   <p>This is a paragraph.</p>
 
-<p data-bind="with: chosenMonth">
-  You have chosen <b data-bind="text: month"></b>
-</p>
+<!-- <b data-bind="text: currentDate"></b> -->
 
-<p data-bind="with: chosenYear">
-  You have chosen <b data-bind="text: year"></b>
-</p>
+<div class="datepicker">
+  <div class="datepicker_title">
+  Datepicker 4.0
+  </div> <!-- end datepicker_title -->
 
-<p data-bind="with: chosenDate">
-  You have chosen <b data-bind="text: date"></b>
-</p>
-
-
-
-  <div class="datepicker">
-    <div class="datepicker_title">
-    Datepicker 4.0
-    </div>
-
-     <div class="datepicker_year">
-      <select data-bind="options: years,
-                    optionsCaption: 'Year...',
-                    optionsText: 'year',
-                    value: chosenYear">
-      </select>
-    </div>
+   <div class="datepicker_year">
+    <button class="downYear"><</button>
+    <text class="yearValue"></text>
+    <button class="upYear">></button>
+  </div> <!-- end datepicker_year -->
 
 
-    <div class="datepicker_month">
-      <select data-bind="options: months,
-                    optionsCaption: 'Month...',
-                    optionsText: 'month',
-                    value: chosenMonth">
-      </select>
-    </div>
+  <div class="datepicker_month">
+    <button class="downMonth"><</button>
+    <text class="monthValue"></text>
+    <button class="upMonth">></button>
+  </div> <!-- end datepicker_month -->
 
-    <div class="datepicker_days" data-bind="foreach: dates">
-        <div class="datepicker_day" data-bind="text: date,
-                                              click: console.log(date)"> </div>
+  <div class="day_row">
+    <button class="downDay"><</button>
+    <text class="dayValue"></text>
+    <button class="upDay">></button>
+  </div> <!-- day_row -->
 
-        <!-- <div class="datepicker_day" data-bind="text: date"></div> -->
-        <div>
-    </div> <!-- end of datepicker_days -->
+  <div class="datepicker_days">
+  </div> <!-- end of datepicker_days -->
 
-
-  </div> <!-- end of datepicker -->
+</div> <!-- end of datepicker -->
 
 </body>
 

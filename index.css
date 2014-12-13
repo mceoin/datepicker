@@ -42,3 +42,15 @@
   margin: 1px;
   vertical-align: middle;
 }
+
+.datepicker_day:active {
+  background-color: beige;
+}
+
+.day_row {
+  height: 20px;
+  padding: 10px 0px 10px 0px;
+  background-color: green;
+  color: orange;
+  font-size: 14px;
+}
