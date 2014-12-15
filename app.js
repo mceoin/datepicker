@@ -5,7 +5,7 @@ $(document).ready(function(){
   todayMonth = todayObject.getMonth();
   todayDate = todayObject.getDate();
   todayDay = todayObject.getDay(); // n.b. returns array position of [S,M,T,W,T,F,S]
-  daysThisMonth = daysInMonth(todayMonth+1, todayYear)
+  daysThisMonth = daysInMonth(todayMonth, todayYear)
 
   currentDateObject = todayObject
   currentYear = todayYear
@@ -13,8 +13,14 @@ $(document).ready(function(){
   currentDay = todayDate
 
   function daysInMonth(month,year) { //Month is 1 based
-      return new Date(year, month, 0).getDate();
+      return new Date(year, month+1, 0).getDate();
   }
+
+  checkDaysLegal = function() {
+  if ( currentDay > daysInMonth(currentMonth, currentYear) ) {
+      currentDay = daysInMonth(currentMonth, currentYear);
+    };
+  };
 
   yearsToDate = _.range(1970, todayYear+1) // note: 1970 was the first javascript Date year
 
@@ -36,27 +42,32 @@ $(document).ready(function(){
     currentYear = currentDateObject.getFullYear();
     currentMonth = currentDateObject.getMonth();
     currentDay = currentDateObject.getDate();
+    daysInCurrentMonth = daysInMonth(currentMonth, currentYear)
     updateDates();
     paintDays();
   }
 
   upYear = function(){
     currentYear = currentYear + 1;
+    checkDaysLegal();
     updateDateObject();
   }
 
   downYear = function(){
     currentYear = currentYear - 1;
+    checkDaysLegal();
     updateDateObject();
   }
 
   upMonth = function(){
     currentMonth = currentMonth + 1;
+    checkDaysLegal();
     updateDateObject();
   }
 
   downMonth = function(){
     currentMonth = currentMonth - 1;
+    checkDaysLegal();
     updateDateObject();
   }
 
