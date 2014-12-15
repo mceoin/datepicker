@@ -162,11 +162,13 @@ $(document).ready(function(){
         $(divItem).addClass("selected_day") // highlight selected day
         currentDay = $(divItem).data("day");
         updateDates()
+        currentDateObject = new Date(currentYear, currentMonth, currentDay)
       }
 
       $('.datepicker_day').on("click", dateSelector)
 
   }; // end paintDays function
+
   paintDays();
   selectFirstDay();
 }); // end of $(document).ready
