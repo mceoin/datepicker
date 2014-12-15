@@ -1,5 +1,13 @@
 .datepicker {
-  height: 400px;
+  width: 302px;
+  height: 40px;
+  background-color: white;
+  text-align: center;
+  /*border: solid black 1px;*/
+}
+
+.datepicker_container {
+  height: 360px;
   width: 300px;
   background-color: white;
   text-align: center;
@@ -11,6 +19,7 @@
   padding: 10px 0px 10px 0px;
   background-color: purple;
   color: white;
+  border: solid black 1px;
 }
 
 .datepicker_year {
@@ -19,6 +28,16 @@
   background-color: black;
   color: orange;
   font-size: 14px;
+}
+
+.yearValue {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.monthValue {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .datepicker_month {

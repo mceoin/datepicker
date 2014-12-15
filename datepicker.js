@@ -3,17 +3,24 @@ $(document).ready(function(){
   createDatePicker = function() {
     $('.datepicker').append("<div class='datepicker_title'>Datepicker 4.0</div>")
 
+    $('.datepicker').append("<div class='datepicker_container'></div>")
+
     //append years
-    $('.datepicker').append("<div class='datepicker_year'><button class='downYear'><</button><text class='yearValue'></text><button class='upYear'>></button></div>")
+    $('.datepicker_container').append("<div class='datepicker_year'><button class='downYear'><</button><text class='yearValue'></text><button class='upYear'>></button></div>")
 
     //append months
-    $('.datepicker').append("<div class='datepicker_month'><button class='downMonth'><</button><text class='monthValue'></text><button class='upMonth'>></button></div>")
+    $('.datepicker_container').append("<div class='datepicker_month'><button class='downMonth'><</button><text class='monthValue'></text><button class='upMonth'>></button></div>")
 
     // append days
-    $('.datepicker').append("<div class='days_of_week'></div><div class='datepicker_days'></div>")
+    $('.datepicker_container').append("<div class='days_of_week'></div><div class='datepicker_days'></div>")
   } // end createDatePicker
 
   createDatePicker();
+
+  $('.datepicker_title').on("click", function(){
+      $('.datepicker_container').toggle()
+    }
+  )
 
   todayObject = new Date();
   todayYear = todayObject.getFullYear();
