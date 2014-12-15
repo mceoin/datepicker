@@ -100,17 +100,27 @@ $(document).ready(function(){
 
   // update date functions END //
   paintDays = function(){
-    if (($('.datepicker_day')) != []){
-      $('.datepicker_day').remove()
+    // if (($('.datepicker_day')) != []){
+    //   $('.datepicker_day').remove()
+    // }
+  $('.datepicker_day').remove()
+
+    // get day position of first day of month
+    function firstDayOfMonth(){
+      var firstDay = new Date(currentYear, currentMonth, 1);
+      return firstDay.getDay();
     }
 
     // calculate starting day
-    for (var i=0; i < (currentDateObject.getDay()-1); i++){
+    for (var i=0; i < firstDayOfMonth(); i++){
       $('.datepicker_days').append("<div class='datepicker_day'></div>");
     }
 
+
+
     // populate days
-    for (var i=0; i < daysInMonth(currentMonth+1, currentYear); i++){
+
+    for (var i=0; i < daysInMonth(currentMonth, currentYear); i++){
       var day = i+1
       $('.datepicker_days').append("<div class='datepicker_day' data-day="+day+">"+day+"</div>");
       } // end populate days loop
