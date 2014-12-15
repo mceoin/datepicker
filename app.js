@@ -1,5 +1,20 @@
 $(document).ready(function(){
 
+  createDatePicker = function() {
+    $('.datepicker').append("<div class='datepicker_title'>Datepicker 4.0</div>")
+
+    //append years
+    $('.datepicker').append("<div class='datepicker_year'><button class='downYear'><</button><text class='yearValue'></text><button class='upYear'>></button></div>")
+
+    //append months
+    $('.datepicker').append("<div class='datepicker_month'><button class='downMonth'><</button><text class='monthValue'></text><button class='upMonth'>></button></div>")
+
+    // append days
+    $('.datepicker').append("<div class='days_of_week'></div><div class='datepicker_days'></div>")
+  } // end createDatePicker
+
+  createDatePicker();
+
   todayObject = new Date();
   todayYear = todayObject.getFullYear();
   todayMonth = todayObject.getMonth();
@@ -16,11 +31,6 @@ $(document).ready(function(){
       return new Date(year, month+1, 0).getDate();
   }
 
-  checkDaysLegal = function() {
-  if ( currentDay > daysInMonth(currentMonth, currentYear) ) {
-      currentDay = daysInMonth(currentMonth, currentYear);
-    };
-  };
 
   yearsToDate = _.range(1970, todayYear+1) // note: 1970 was the first javascript Date year
 
@@ -30,14 +40,29 @@ $(document).ready(function(){
 
   monthsArray = [ {month: "January"}, {month: "February"}, {month: "March"}, {month: "April"}, {month: "May"}, {month: "June"}, {month: "July"}, {month: "August"}, {month: "September"}, {month: "October"}, {month: "November"}, {month: "December"} ]
 
+  daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
+  populateDaysOfWeek = function(day){
+    $('.days_of_week').append("<div class='day_of_week'>"+day+"</div>")
+  }
+
+  _.each(daysOfWeek, populateDaysOfWeek)
+
+
   datesArray = _.range(1, daysThisMonth+1)
 
   dateObjects = _.map(datesArray, function(num){
                     return _.object(['date'], [num]); // return array of date hashes
                   })
 
+  checkDaysLegal = function() { //checks days in month is legal to stop skipping extra months when e.g. moving from August 31 to September.
+  if ( currentDay > daysInMonth(currentMonth, currentYear) ) {
+      currentDay = daysInMonth(currentMonth, currentYear);
+    };
+  };
+
   // update date functions BEGIN //
-  updateDateObject = function(){ //note: we reset the currentYear/Month/Day to keep calendar current with "real" dates. (otherwise -34 & + 61 become real date)
+  updateDateObject = function(){
     currentDateObject = new Date(currentYear, currentMonth, currentDay);
     currentYear = currentDateObject.getFullYear();
     currentMonth = currentDateObject.getMonth();
@@ -89,21 +114,24 @@ $(document).ready(function(){
   $('.upDay').click(upDay)
   $('.downDay').click(downDay)
 
-  // set initial date values/update date values
-  updateDates = function(){
+  // set initial selected date
+  selectFirstDay = function() {
+    $('[data-day='+currentDay+']').addClass('selected_day');
+  }
+
+  updateDates = function(){ //set & update date values
   $('.yearValue').text(currentYear)
   $('.monthValue').text((monthsArray[currentMonth]).month)
   $('.dayValue').text(currentDay)
+  currentDateObject = new Date(currentYear, currentMonth, currentDay)
   }
 
   updateDates();
 
   // update date functions END //
   paintDays = function(){
-    // if (($('.datepicker_day')) != []){
-    //   $('.datepicker_day').remove()
-    // }
   $('.datepicker_day').remove()
+  $('.blank_day').remove()
 
     // get day position of first day of month
     function firstDayOfMonth(){
@@ -111,15 +139,11 @@ $(document).ready(function(){
       return firstDay.getDay();
     }
 
-    // calculate starting day
     for (var i=0; i < firstDayOfMonth(); i++){
-      $('.datepicker_days').append("<div class='datepicker_day'></div>");
+      $('.datepicker_days').append("<div class='blank_day'></div>");
     }
 
-
-
     // populate days
-
     for (var i=0; i < daysInMonth(currentMonth, currentYear); i++){
       var day = i+1
       $('.datepicker_days').append("<div class='datepicker_day' data-day="+day+">"+day+"</div>");
@@ -127,6 +151,8 @@ $(document).ready(function(){
 
       function dateSelector(){
         var divItem = this;
+        $('.selected_day').removeClass("selected_day")
+        $(divItem).addClass("selected_day") // highlight selected day
         currentDay = $(divItem).data("day");
         updateDates()
       }
@@ -135,5 +161,5 @@ $(document).ready(function(){
 
   }; // end paintDays function
   paintDays();
-
+  selectFirstDay();
 }); // end of $(document).ready

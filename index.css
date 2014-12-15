@@ -1,8 +1,9 @@
 .datepicker {
-  height: 420px;
+  height: 400px;
   width: 300px;
-  background-color: red;
+  background-color: white;
   text-align: center;
+  border: solid black 1px;
 }
 
 .datepicker_title {
@@ -33,11 +34,33 @@
 
 }
 
+.day_of_week {
+  height: 20px;
+  width: 38px;
+  border: 1px solid black;
+  float: left;
+  margin: 1px;
+}
+
 .datepicker_day {
   height: 38px;
   width: 38px;
   background-color: yellow;
   border: 1px solid black;
+  float: left;
+  margin: 1px;
+  vertical-align: middle;
+}
+
+.selected_day {
+  background-color: green;
+}
+
+.blank_day {
+  height: 38px;
+  width: 38px;
+  background-color: white;
+  border: 1px solid white;
   float: left;
   margin: 1px;
   vertical-align: middle;
